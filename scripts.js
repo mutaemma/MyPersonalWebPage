@@ -65,10 +65,33 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Simple gallery modal
+    // Simple gallery modal with project details
+    const projectDetails = [
+        {
+            title: "Arduino Automatic Door",
+            description: "A smart door system using Arduino and sensors to automatically open and close based on motion detection. This project demonstrates basic IoT concepts and home automation.",
+            image: "https://upload.wikimedia.org/wikipedia/commons/8/87/Arduino_Logo.svg"
+        },
+        {
+            title: "Personal Website",
+            description: "A responsive personal portfolio website built with HTML, CSS, and JavaScript. It showcases my projects, skills, and contact information with a modern design.",
+            image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=600&q=80"
+        },
+        {
+            title: "Weather App",
+            description: "A web application that fetches and displays real-time weather data for any city using a public weather API. It features a clean UI and dynamic weather icons.",
+            image: "https://cdn-icons-png.flaticon.com/512/1116/1116453.png"
+        }
+    ];
+
     const galleryItems = document.querySelectorAll('.gallery-item');
-    galleryItems.forEach(item => {
+    galleryItems.forEach((item, idx) => {
         item.addEventListener('click', function() {
+            const project = projectDetails[idx] || {
+                title: this.textContent,
+                description: "Project details and images can go here.",
+                image: ""
+            };
             const modal = document.createElement('div');
             modal.style.position = 'fixed';
             modal.style.top = 0;
@@ -83,8 +106,9 @@ document.addEventListener('DOMContentLoaded', function() {
             modal.innerHTML = `
                 <div style="background:#fff;padding:2rem 3rem;border-radius:12px;max-width:90vw;max-height:80vh;overflow:auto;position:relative;">
                     <span style="position:absolute;top:10px;right:18px;font-size:2rem;cursor:pointer;color:#4e54c8;" id="close-modal">&times;</span>
-                    <h3>${this.textContent}</h3>
-                    <p>Project details and images can go here.</p>
+                    <h3>${project.title}</h3>
+                    <img src="${project.image}" alt="${project.title}" style="max-width:100%;height:auto;margin-bottom:1rem;border-radius:8px;">
+                    <p>${project.description}</p>
                 </div>
             `;
             document.body.appendChild(modal);
@@ -92,6 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
             modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
         });
     });
+    // (Removed duplicate galleryItems declaration and redundant modal code)
 
     // Contact form feedback
     const form = document.getElementById('contact-form');
